@@ -1,6 +1,9 @@
 import Directory from '../../components/directory/directory.component'
+// Directory component is imported into the Home.jsx
 
+// Home component is initiated with an array an a return statement
 const Home = () => {
+  // array of objects
   const categories = [
     {
       "id": 1,
@@ -29,10 +32,12 @@ const Home = () => {
     }
   ]
   
-
+  // The return statement renders "static content" through the Directory component for now.
+  // <Directory /> categories props is passing the categories array to <Directory />
   return (
     <Directory categories={categories}/>
   );
 }
 
+// Home component is exported and can be import in another component.
 export default Home;
