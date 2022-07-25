@@ -1,17 +1,13 @@
+//Creates an instance object of firebase.
 import { initializeApp } from 'firebase/app';
-/*
-    firebase/app brings down a suite of tools from the library
-    initializeApp creates our own instance (object) of firebase when call it from firebase/app
-*/
 
-import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from 'firebase/auth';
-/*
-    getAuth creates and authorization instance (object)
-    signInWithRedirect allows signing up w/redirect
-    signInWithPopup allows signing up through popups
-    GoogleAuthProvider is a class from google authorization
-    ! B/c it's a class we may create different instances for popup and redirect for example
-*/
+//Create an instance object for authorization
+import { 
+    getAuth, 
+    signInWithPopup, 
+    GoogleAuthProvider, 
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword } from 'firebase/auth';
 
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
 /*
@@ -119,3 +115,22 @@ export const createAuthUserWithUserAndPassword = async (email, password) => {
 
     return await createUserWithEmailAndPassword(auth, email, password);
 };
+
+export const signInWithUserAndPassword = async (email, password) => {
+    if (!email || !password) return;
+
+    return await signInWithEmailAndPassword(auth, email, password);
+};
+
+/*
+    firebase/app brings down a suite of tools from the library
+    initializeApp creates our own instance (object) of firebase when call it from firebase/app
+*/
+
+/*
+    getAuth creates an authorization instance (object)
+    signInWithRedirect allows signing up w/redirect
+    signInWithPopup allows signing up through popups
+    GoogleAuthProvider is a class from google authorization
+    ! B/c it's a class we may create different instances for popup and redirect for example
+*/

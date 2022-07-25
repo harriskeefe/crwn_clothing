@@ -10,10 +10,12 @@ const BUTTON_TYPE_CLASSES = {
     inverted: 'inverted'
 }
 
-const Button = ({children, buttonType}) => {
+const Button = ({children, buttonType, ...otherProps}) => {
     return (
-        <button className={`button-container ${BUTTON_TYPE_CLASSES[buttonType]}`}>{children}</button>
+        <button className={`button-container ${BUTTON_TYPE_CLASSES[buttonType]}`}{...otherProps}>{children}</button>
     )
 }
 
 export default Button;
+//otherProps is type='submit'
+//props.children={ children } this renders that 'Sign In' text.

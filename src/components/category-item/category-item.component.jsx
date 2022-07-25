@@ -1,10 +1,5 @@
 import './category-item.styles.scss';
-// Stylesheet for this component is imported.
 
-// Functional Component CategoryItem is initiated.
-// Props from <Directory /> is passed, which is each categories "object".
-// category prop is destructured into the "keys" from each object (imageUrl, title).
-// Each object is rendered in its own <CategoryItem/> after props are passed in.
 const CategoryItem = ({category}) => {
     const { imageUrl, title } = category;
     return (
@@ -21,5 +16,10 @@ const CategoryItem = ({category}) => {
     );
 }
 
-// <CategoryItem /> is exported so that <Directory /> can import it.
 export default CategoryItem;
+/*
+  Props from <Directory /> is passed, which is each categories "object".
+  category prop is destructured into the "keys" from each object (imageUrl, title).
+  Each object is rendered in its own <CategoryItem/> after props are passed in.
+  <CategoryItem /> is exported so that <Directory /> can import it.
+*/
