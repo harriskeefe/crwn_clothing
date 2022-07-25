@@ -1,26 +1,25 @@
-//Creates an instance object of firebase.
+// Creates an instance object for the firebase app.
 import { initializeApp } from 'firebase/app';
 
-//Create an instance object for authorization
+// Create an instance object for firebase authorization.
 import { 
     getAuth, 
     signInWithPopup, 
     GoogleAuthProvider, 
     createUserWithEmailAndPassword, 
-    signInWithEmailAndPassword } from 'firebase/auth';
+    signInWithEmailAndPassword,
+    signOut } from 'firebase/auth';
 
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
-/*
-    getFirestore creates an instance of firestore database
-    doc allows us to retrieve documents from the firestore database
-    getDoc allows us to get document data
-    setDoc allows us to set document data
-*/
+// Creates an instance object for firebase database.
+import { 
+    getFirestore, 
+    doc, 
+    getDoc, 
+    setDoc } from 'firebase/firestore';
 
-/*
-    firebaseConfig is your web app's Firebase configuration that was made online.
-    This config extracts functionality allowing interactions (CRUD operations) with our instance of firebase. 
-*/
+
+
+// Configuration file that was made online allowing CRUD operations w/firebase instance.
 const firebaseConfig = {
     apiKey: "AIzaSyCqYD26t-3WvRWL9FH_J33Z_LTFAKvTMWg",
     authDomain: "crwn-clothing-db-cca47.firebaseapp.com",
@@ -30,49 +29,22 @@ const firebaseConfig = {
     appId: "1:228192621089:web:f8b7f3108eef8f5f81c960"
 };
 
-// Initialize Firebase and attached our firebaseConfig object which enables CRUD actions
+// Initialize Firebase and attached our firebaseConfig object which enables CRUD actions.
 const firebaseApp = initializeApp(firebaseConfig);
 
-
-/*
-    GoogleAuthProvider is a class. We instantiate GoogleAuthProvider by using the const provider to make a new instance (object) of the class.
-    Each custom parameter will take some kind of configuration abject and tell it how to behave.
-    Every time a user interacts with our provider instance (object), we want to force them to select an account.
-*/
+// Create a new authorization class w/GoogleAuthProvider to prompt user to select a Google account.
+// getAuth() Authenticate's the lifecycle of authorization.
+// Google's popup window is exported w/authorization
 const googleProvider = new GoogleAuthProvider();
-
 googleProvider.setCustomParameters({
     prompt: "select_account"
 });
-
 export const auth = getAuth();
-/*
-    Anything we authenticate is done one way which is why there is no instance of getAuth() (getAuth is a function)
-    ! We need one way to authenticate for the lifecycle of the authorization
-*/
-
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
-// signInWithGooglePopup is exported so that we can sign in on a popup window
-// googleProvider come from the class GoogleAuthProvider, a provider could be many like facebook, github etc.
-// theres only one type of 'auth'
-// provider instance are passed prompts the popup
-// *this is imported in the sign-in component
 
+// Points to the database enabling setting/getting data.
 export const db = getFirestore();
-// const db points directly to the database
-//* enables us to set and get data
 
-/*
-    This function receives a user authentication object from the sign-in component, takes the data and stores it in firestore. 
-    We need to see if theres an existing document reference.
-    *this is a special type of reference when talking about an instance of a document model
-    the parameter is userAuth b/c that's the value that we are getting back
-    * doc has 3 parameters
-    ! Remember that doc retrieves documents from the database
-    * db is the instance of the database
-    * 'users' is the collections
-    * userAuth.uid is the unique id that's used to get a document reference.
-*/
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation={}) => {
     if(!userAuth) return;
 
@@ -122,6 +94,7 @@ export const signInWithUserAndPassword = async (email, password) => {
     return await signInWithEmailAndPassword(auth, email, password);
 };
 
+export const signOutUser = async () => await signOut(auth);
 /*
     firebase/app brings down a suite of tools from the library
     initializeApp creates our own instance (object) of firebase when call it from firebase/app
@@ -133,4 +106,43 @@ export const signInWithUserAndPassword = async (email, password) => {
     signInWithPopup allows signing up through popups
     GoogleAuthProvider is a class from google authorization
     ! B/c it's a class we may create different instances for popup and redirect for example
+*/
+
+/*
+    getFirestore creates an instance of firestore database
+    doc allows us to retrieve documents from the firestore database
+    getDoc allows us to get document data
+    setDoc allows us to set document data
+*/
+
+/*
+    firebaseConfig is your web app's Firebase configuration that was made online.
+    This config extracts functionality allowing interactions (CRUD operations) with our instance of firebase. 
+*/
+
+/*
+    GoogleAuthProvider is a class. We instantiate GoogleAuthProvider by using the const provider to make a new instance (object) of the class.
+    Each custom parameter will take some kind of configuration abject and tell it how to behave.
+    Every time a user interacts with our provider instance (object), we want to force them to select an account.
+*/
+
+/*
+    signInWithGooglePopup is exported so that we can sign in on a popup window
+    googleProvider come from the class GoogleAuthProvider, a provider could be many like facebook, github etc.
+    theres only one type of 'auth'
+    provider instance are passed prompts the popup
+    *this is imported in the sign-in component
+*/
+
+
+/*
+    This function receives a user authentication object from the sign-in component, takes the data and stores it in firestore. 
+    We need to see if theres an existing document reference.
+    *this is a special type of reference when talking about an instance of a document model
+    the parameter is userAuth b/c that's the value that we are getting back
+    * doc has 3 parameters
+    ! Remember that doc retrieves documents from the database
+    * db is the instance of the database
+    * 'users' is the collections
+    * userAuth.uid is the unique id that's used to get a document reference.
 */

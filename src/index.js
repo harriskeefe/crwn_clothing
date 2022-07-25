@@ -1,25 +1,21 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { UserProvider } from './context/user.context';
+
 import "./index.scss";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-/*
-  React library is responsible for the functionality of the application.
-  ReactDOM connects the application to the document object model.
-  react-dom/client provides client specific methods to initialize apps for the client.
-  Import BrowserRouter to connect our application to the browsers URL.
-  The library react-router-dom allows dynamic routing in the program.
-  The stylesheet is imported into index.js
-  The App component is imported into index.js
-*/
+
+
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <UserProvider>
+        <App />
+      </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
@@ -32,7 +28,14 @@ root.render(
   StrictMode double renders application to ensure all standard are followed. Errors may occur due to deprecation.
 */ 
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+/*
+  React library is responsible for the functionality of the application.
+  ReactDOM connects the application to the document object model.
+  react-dom/client provides client specific methods to initialize apps for the client.
+  Import BrowserRouter to connect our application to the browsers URL.
+  The library react-router-dom allows dynamic routing in the program.
+  The stylesheet is imported into index.js
+  The App component is imported into index.js
+*/
+
+
